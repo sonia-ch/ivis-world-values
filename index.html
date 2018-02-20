@@ -33,20 +33,59 @@
     </div>
     <!-- Tab content -->
     <div id="Trail1" class="tabcontent">
-        <h3>WVS Analytic Trail</h3>
-        <p>Here I will put my analytic trail from WVS tools.</p>
-        <p>I am interested in how is the feeling of happiness around the world. First I select the last wave, then I have to choose some countries.
-        The image below shows the distribution en each of the countries.</p>
-        <img scr="/screenshots/HappinessXcountry.jpg" alt="This was a photo"/>
-        <p>I am impressed by Egypt and so I have a look at its evolution over the years.</p>
-        <img scr="/screenshots/HappinesEgyptTime.jpg"/>
-        <p>It is clear that something happened in those years, and <a href="https://en.wikipedia.org/wiki/Egyptian_crisis_(2011%E2%80%9314)#Economy"</p>Wikipedia</a>
-        confirmed my ideas.</p>
-        <p>About the map... It fails for negative values of the indicator.</p>
-        <img scr="/screenshots/HappinessMap.jpg"/>
-        <p>Then, I searched for the first aim the participats from each country and the results confirmed even more my hypothesis.</p>
-        <img scr="/screenshots/AimsEgypt.jpg"/>
+        <p>
+            Do all the countries in the world have the same average feeling of happiness?
+            Are their differences related to their wealth and living conditions?
+            Or is it because of their way of understanding life?
+        </p>
+        <h3>Analytic trail from World Values Survey online tools</h3>
+        <p>
+            Let’s start by looking at the most recent wave period, 2010-2014.
+            Then, we have to select which countries we want to visualize and compare and one variable.
+            Here I selected Egypt, Germany, South Africa and Spain and the “feeling of happiness”.
+        </p>
+        <p>The image below shows the distribution in each of the countries.</p>
 
+        <img src="/screenshots/HappinessXcountry.jpg" alt="This was a photo" />
+
+        <p>From that visualization we get some insights: the country with more percentage of “very happy” population is South Africa. Germany and Spain are predominant at “rather happy”, and Egypt has a shocking majority of “not at all happy”.</p>
+        <p>With the aim of getting more insights into what happened in Egypt for such terrifying results, we can visualize its evolution over the years.</p>
+        <img src="/screenshots/HappinessEgyptTime.jpg" />
+
+        <p>
+            The graphic shows that for previous years the feeling of happiness was more in line with the other countries, and it was only in the last period when it dramatically fell.
+            Certainly, it was due to the big <a href="https://en.wikipedia.org/wiki/Egyptian_crisis_(2011%E2%80%9314)#Economy"
+        </p>crisis</a> the country suffered from 2011 until 2014.</p>
+
+        <p>The map visualization allows us to see an overview of all countries’ happiness index through color gradients. Although, it fails with negative values, like for Egypt.</p>
+        <img src="/screenshots/HappinessMap.jpg" />
+        <!--<p>Then, I searched for the first aim the participats from each country and the results confirmed even more my hypothesis.</p>
+    <img src="/screenshots/AimsEgypt.jpg" />-->
+        <p>
+            If I want to see other parameters like the importance of family, work, religion or politics I have to follow the same steps again.
+            However, there is no way of relating more than one variable at once.
+        </p>
+
+        <h3>Analytic trail using my new tool</h3>
+        <p>The first look at this new visualization tool shows an overview of the feeling of happiness around the world for a specific year by means of a color gradient. By moving the slider below the map we get the evolution of this variable over the time.</p>
+        <img src="/screenshots/.jpg" />
+        <p>Now, we can see more insights about the distribution of this variable in each country by selecting them on the map.</p>
+
+        <p>
+            The pictograms appear in happiness ascending order by default, but can be changed by selecting other sorting criteria.
+            To see the relation between happiness and the important aspects in life for each country, we can now change our variable selected. Let’s see the importance of religion.
+        </p>
+        <img src=""/>
+        <p>The pictograms of each country are still sorted by their happiness index, so here we can observe a relation between happiness and religion.</p>
+
+        <p>With that selection of countries it is possible to change variables and time and quickly see the results.</p>
+
+        <h3>Learnings from this project</h3>
+        <p>
+            This project has supposed a challenge for me in several aspects. As a novice front-end programmer with no experience with asynchronous programming, Javascript and the problem of reading files has been  the cause of many conflicts that I have learnt how to solve. However, I am aware of all the improvements my code could have after further developing my skills in this field.
+            D3 is a complex library not always intuitive and hard to master, but I feel that after working in this project I have gained more confidence with it.
+            Dealing with complex databases and combining those with different structures has also been a practice along the development of the project, as well as the analysis of different data transformations and mapping to appropriate visual structures and views.
+        </p>
 
     </div>
 
@@ -58,44 +97,39 @@
     </div>
 
     <div id="Visualization" class="tabcontent">
-        <!--<h3>Visualization Tools</h3>
-    <p>This is my visualization</p>-->
-        <button id="Family" class="btn" onclick="changeVariable(event, this.id,wave)">Family</button>
-        <button id="Friends" class="btn" onclick="changeVariable(event, this.id,wave)">Friends</button>
-        <button id="Religion" class="btn" onclick="changeVariable(event, this.id,wave)">Religion</button>
-        <button id="Leisure" class="btn" onclick="changeVariable(event, this.id,wave)">Leisure</button>
-        <button id="Work" class="btn" onclick="changeVariable(event, this.id,wave)">Work</button>
-        <button id="Politics" class="btn" onclick="changeVariable(event, this.id,wave)">Politics</button>
-        <button id="Happiness" class="btn" onclick="changeVariable(event, this.id,wave)">Happiness</button>
-        <button id="GDP" class="btn" onclick="getAvgDataGap(this.id, wave)">Income</button>
+    
+        <div class="firstColumn">
+            <div class="question-section">How important in life is...?</div>
+            <button id="Family" class="btn" onclick="changeVariable(event, this.id,wave)">Family</button>
+            <button id="Friends" class="btn" onclick="changeVariable(event, this.id,wave)">Friends</button>
+            <button id="Religion" class="btn" onclick="changeVariable(event, this.id,wave)">Religion</button>
+            <button id="Leisure" class="btn" onclick="changeVariable(event, this.id,wave)">Leisure</button>
+            <button id="Work" class="btn" onclick="changeVariable(event, this.id,wave)">Work</button>
+            <button id="Politics" class="btn" onclick="changeVariable(event, this.id,wave)">Politics</button>
 
-        <button id="Clear" class="btn" onclick="clearCountries()">Clear countries</button>
-        <select id="sort-list" onchange="getSortBy(this)">
-            <option value="asc">Happiness asc</option>
-            <option value="desc">Happiness desc</option>
-        </select>
-
-        <!--<button id="Spain" class="btn" onclick="addCountry(this.id)">Spain</button>-->
-
-        <iv class="container">
-            <!--<div id="map-container">
-            <div id="map-holder"></div>
-            <div id="legend1"></div>
-        </div>-->
             <div id="map-container">
                 <div id="map-holder"></div>
                 <div id="legend1"></div>
                 <div id="year-range" class="slider"></div>
-                <!--<input type="range" class="slider" id="year-range" min="2" max="6" step="1" list="tickmarks"
-            onchange="console.log(this.value)" oninput="updateYear(this.value)">-->
-
+                <div height="100px" width="100%">Timeline</div>
             </div>
+        </div>
+        
+        <div class="secondColumn">
+            <div class="question-section">Sorted by:</div>
+            <button id="Happiness" class="btn" onclick="changeVariable(event, this.id,wave)">Happiness</button>
+            <button id="GDP" class="btn" onclick="getAvgDataGap(this.id, wave)">Income</button>
+
+            <button id="Clear" class="btn" onclick="clearCountries()">Clear countries</button>
+            <select id="sort-list" onchange="getSortBy(this)">
+                <option value="asc">Happiness asc</option>
+                <option value="desc">Happiness desc</option>
+            </select>
+
             <div id="Pictogram"></div>
             <div id="Legend"></div>
-
-            <!--<div id="DotMatrixChart"></div>-->
-    </div>
-
+        </div>
+                
     </div>
 
     <!-- Main js file -->
