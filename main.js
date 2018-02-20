@@ -9,6 +9,7 @@ var sortOrd = 1;
 var sortBy = "Happiness";
 var gapVar = 0;
 var gapButton = [];
+var urlGit = "https://github.com/sonia-ch/ivis-world-values/tree/master";
 
 
 function openTab(evt, tabName) {
@@ -263,7 +264,7 @@ function UpdateMap(data_avg, min, max, gdp) {
     setTimeout(function () {
         //console.log("Update map: ", data_avg.length);
         d3.json(
-            "/data/custom.geo.json",
+            urlGit + "/data/custom.geo.json",
             function (json) {
                 // Loop through each state data value in the .csv file
                 for (var i = 0; i < data_avg.length; i++) {                
@@ -435,7 +436,7 @@ function getAvgData(buttonID, wave) {
     var coef = [2, 1, -1, -2];
     var avg = [];
     
-    d3.csv("/data/w" + wave + "/" + buttonID + ".csv", function (data) {
+    d3.csv(urlGit + "/data/w" + wave + "/" + buttonID + ".csv", function (data) {
         var all_countries = Object.keys(data[0]);
         avg.length = all_countries.length - 2;
         avg.fill(0);
@@ -468,7 +469,7 @@ function getAvgDataGap(buttonID, wave) {
     var max = [];
     var val = [];
 
-    d3.csv("/data/gap/" + buttonID + ".csv", function (data) {
+    d3.csv(urlGit + "/data/gap/" + buttonID + ".csv", function (data) {
         var all_countries = Object.keys(data[0]);
         data.forEach(function (d, i) {
             if (d[buttonID] == year.toString()) {
@@ -510,7 +511,7 @@ UpdateMap(getAvgData(lastButton,wave),-200,200,0);
 
 function DrawDotMatrix(buttonID, wave) {    
     lastButton = buttonID;
-    d3.csv("/data/w" + wave + "/" + buttonID + ".csv", function (data) {
+    d3.csv(urlGit + "/data/w" + wave + "/" + buttonID + ".csv", function (data) {
         //var dataset = [];
         var data_w6_avg = [];
         var categories = [];
