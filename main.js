@@ -616,7 +616,7 @@ function slideVal(e, ui) {
 }
 
 $("#year-range").slider({
-    value: 6,
+    value: 5,
     min: 2,
     max: 6,
     step: 1,
