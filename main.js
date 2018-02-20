@@ -722,7 +722,7 @@ function getSortBy(sel) {
     var myText = sel.options[sel.selectedIndex].text;
     console.log(myText);
     var res = myText.split(" ");
-    if (res[1] == "asc") {
+    if (res[1] == "ascendent") {
         sortOrd = 1;
     } else {
         sortOrd = -1;
