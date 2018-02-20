@@ -1,5 +1,5 @@
 // JavaScript source code
-var wave = 6;
+var wave = 5;
 var data_w6;
 var data_w6_avg = [];
 var coef = [2, 1, -1, -2];
