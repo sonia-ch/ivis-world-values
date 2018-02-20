@@ -9,7 +9,7 @@ var sortOrd = 1;
 var sortBy = "Happiness";
 var gapVar = 0;
 var gapButton = [];
-var urlGit = "https://github.com/sonia-ch/ivis-world-values/tree/master";
+var urlGit = "/ivis-world-values";
 
 
 function openTab(evt, tabName) {
