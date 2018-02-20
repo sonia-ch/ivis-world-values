@@ -25,6 +25,14 @@ body {
     vertical-align: top;
 }
 
+select {
+    width: 100%;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+}
+
 
 /* Style the tab */
 .tab {
@@ -238,4 +246,10 @@ rect {
 
 #year-range .ui-slider-range {
     background: #4CAF50;
+}
+
+#Pic-message{
+    display:block;
+    font-size: 20pt;
+    margin-top: 50px;
 }
