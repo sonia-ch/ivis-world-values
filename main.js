@@ -258,12 +258,12 @@ function drawLegend() {
 drawLegend();
 
 // get map data
-function UpdateMap(data_avg, min, max) {
+function UpdateMap(data_avg, min, max, gdp) {
     //console.log("Update map: ", data_avg[0].country);
     setTimeout(function () {
         //console.log("Update map: ", data_avg.length);
         d3.json(
-            "/custom.geo.json",
+            "/data/custom.geo.json",
             function (json) {
                 // Loop through each state data value in the .csv file
                 for (var i = 0; i < data_avg.length; i++) {                
@@ -356,11 +356,15 @@ function UpdateMap(data_avg, min, max) {
                         var value = d.properties.value;
                         if (value) {
                             //If value exists
-                            console.log(gapButton);
-                            if (gapButton.localeCompare("GPD")) {
-                                console.log("This must be interpolated");
+                            var newMin = min;
+                            var newMax = max;
+                            if (gdp == 1) {
+                                //Logarithmic scale
+                                newMin = Math.log10(min);
+                                newMax = Math.log10(max);
+                                value = Math.log10(value);
                             }
-                            var t = (value - min) / (max-min);
+                            var t = (value - newMin) / (newMax-newMin);
                             return d3.interpolateRdYlGn(t);
                         } else {
                             //If value is undefined
@@ -431,7 +435,7 @@ function getAvgData(buttonID, wave) {
     var coef = [2, 1, -1, -2];
     var avg = [];
     
-    d3.csv("/w" + wave + "/" + buttonID + ".csv", function (data) {
+    d3.csv("/data/w" + wave + "/" + buttonID + ".csv", function (data) {
         var all_countries = Object.keys(data[0]);
         avg.length = all_countries.length - 2;
         avg.fill(0);
@@ -464,7 +468,7 @@ function getAvgDataGap(buttonID, wave) {
     var max = [];
     var val = [];
 
-    d3.csv("/gap/" + buttonID + ".csv", function (data) {
+    d3.csv("/data/gap/" + buttonID + ".csv", function (data) {
         var all_countries = Object.keys(data[0]);
         data.forEach(function (d, i) {
             if (d[buttonID] == year.toString()) {
@@ -483,7 +487,7 @@ function getAvgDataGap(buttonID, wave) {
                 //console.log(max, min);
             }
         });
-        UpdateMap(gap_data, min, max);
+        UpdateMap(gap_data, min, max,1);
     });
     //setTimeout(function () {
         console.log("All: ", min, max);
@@ -494,7 +498,7 @@ function getAvgDataGap(buttonID, wave) {
     //return [gap_data, min, max];
 }
 var lastButton = "Friends";
-UpdateMap(getAvgData(lastButton,wave),-200,200);
+UpdateMap(getAvgData(lastButton,wave),-200,200,0);
 
 //console.log(d3.interpolateRdYlGn(1));
 
@@ -506,7 +510,7 @@ UpdateMap(getAvgData(lastButton,wave),-200,200);
 
 function DrawDotMatrix(buttonID, wave) {    
     lastButton = buttonID;
-    d3.csv("/w" + wave + "/" + buttonID + ".csv", function (data) {
+    d3.csv("/data/w" + wave + "/" + buttonID + ".csv", function (data) {
         //var dataset = [];
         var data_w6_avg = [];
         var categories = [];
@@ -569,7 +573,7 @@ function updateVisuals(buttonID, wave) {
     if (wave == null) {
         wave = 6; // Default wave
     }
-    UpdateMap(getAvgData(buttonID, wave),-200,200);
+    UpdateMap(getAvgData(buttonID, wave),-200,200,0);
     DrawDotMatrix(buttonID, wave);
 }
 
