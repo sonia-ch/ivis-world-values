@@ -7,6 +7,7 @@ var country = [];
 //var country = ["Algeria", "Azerbaijan", "Argentina"];
 var sortOrd = 1;
 var sortBy = "Happiness";
+var lastButton = "Happiness";
 var gapVar = 0;
 var gapButton = [];
 var urlGit = "/ivis-world-values";
@@ -498,7 +499,7 @@ function getAvgDataGap(buttonID, wave) {
     //console.log(max, min);
     //return [gap_data, min, max];
 }
-var lastButton = "Friends";
+
 UpdateMap(getAvgData(lastButton,wave),-200,200,0);
 
 //console.log(d3.interpolateRdYlGn(1));
