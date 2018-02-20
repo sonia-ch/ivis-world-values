@@ -122,13 +122,24 @@
             <button id="GDP" class="btn" onclick="getAvgDataGap(this.id, wave)">Income</button>
 
             <button id="Clear" class="btn" onclick="clearCountries()">Clear countries</button>
-            <div class="question-section">Sort by:</div>
+            
+            <div class="sub-section">Color the map by Gapminder variable:</div>
+            <select id="paint-list" onchange="getAvgDataGap(this,wave)">
+                <option value="GDP">Income</option>
+                <option value="Life expectancy">Life expectancy</option>
+                <option value="Poverty ratio">Poverty ratio</option>
+                <option value="Improved sanitation">Improved sanitation</option>
+                <option value="Improved water sources">Improved water sources</option>
+                <option value="Internet user per 100">Internet user per 100</option>
+                <!--<option value=""></option>-->
+            </select>
 
+            <div class="sub-section">Sort countries by:</div>
             <select id="sort-list" onchange="getSortBy(this)">
                 <option value="0">Happiness ascendent</option>
                 <option value="0">Happiness descendent</option>
                 <!--<option value="1">GDP ascendent</option>
-                <option value="1">GDP descendent</option>-->
+        <option value="1">GDP descendent</option>-->
             </select>
             
             <div id="Pic-message">Select one or more countries on the map to see the details. </div>
