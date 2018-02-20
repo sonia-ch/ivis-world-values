@@ -553,6 +553,7 @@ function clearCountries() {
     d3.select("#DotMatrixChart").select("svg").remove();
     d3.select("#Pictogram").selectAll("svg").remove();
     d3.select("#Legend").selectAll("svg").remove();
+    d3.select("#Pic-message").style("display","block");
 }
 
 function addCountry(newCountry) {
