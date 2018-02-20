@@ -11,6 +11,12 @@ body {
     margin-left: 100px;
 }
 
+.sub-section {
+    font-size: 18px;
+    margin-left: 50px;
+    margin-top: 5px;
+}
+
 .firstColumn {
     margin: 10px;
     margin-left: 0;
@@ -31,8 +37,11 @@ select {
     border: none;
     border-radius: 4px;
     background-color: #f1f1f1;
-    margin-bottom: 40px;
     margin-top: 10px;
+}
+
+select:last-child {
+    margin-bottom: 40px;
 }
 
 
