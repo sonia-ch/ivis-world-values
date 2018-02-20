@@ -16,6 +16,7 @@ function getColor(category) {
 }
 
 function drawPic(dataset) {
+    d3.select("#Pic-message").style("display", "none");
 
     var svgDoc = d3.select("#Pictogram").selectAll("svg").remove();
 
