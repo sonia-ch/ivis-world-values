@@ -172,6 +172,7 @@ var svg = d3
 
 function drawLegend() {
     var w = 500, h = 70;
+    d3.select("#legend1").selectAll("svg").remove();
 
     var key = d3.select("#legend1")
         .append("svg")
@@ -219,6 +220,25 @@ function drawLegend() {
         .attr("transform", "translate(100,30)");
 
     //Append title
+
+    var firstTag;
+    var secondTag;
+
+    if (gapVar) {
+        if (gapButton == "Under five mortality" || gapButton == "Total fertility rate") {
+            firstTag = "High";
+            secondTag = "Low";
+        } else {
+            firstTag = "Low";
+            secondTag = "High";
+        }
+
+
+    } else {
+        firstTag = "Not important";
+        secondTag = "Very important";
+    }
+    console.log(firstTag);
     key.append("g")
         .append("text")
         .attr("class", "legendTitle")
@@ -226,7 +246,7 @@ function drawLegend() {
         .attr("y", 65)
         .style("font-size", "10pt")
         .style("text-anchor", "middle")
-        .text("Not important");
+        .text(firstTag);
 
     key.append("g")
         .append("text")
@@ -235,26 +255,7 @@ function drawLegend() {
         .attr("y", 65)
         .style("font-size", "10pt")
         .style("text-anchor", "middle")
-        .text("Very important");
-
-    //var y = d3.scaleLinear()
-    //    .range([300, 0])
-    //    .domain([68, 12]);
-
-    //var yAxis = d3.axisBottom()
-    //    .scale(y)
-    //    .ticks(5);
-
-    //key.append("g")
-    //    .attr("class", "y axis")
-    //    .attr("transform", "translate(0,50)")
-    //    .call(yAxis)
-    //    .append("text")
-    //    .attr("transform", "rotate(-90)")
-    //    .attr("y", 0)
-    //    .attr("dy", ".71em")
-    //    .style("text-anchor", "end")
-    //    .text("axis title");
+        .text(secondTag);
 
 }
 drawLegend();
@@ -367,6 +368,9 @@ function UpdateMap(data_avg, min, max, gdp) {
                                 value = Math.log10(value);
                             }
                             var t = (value - newMin) / (newMax - newMin);
+                            if (gapButton == "Under five mortality" || gapButton =="Total fertility rate") {
+                                t = 1 - t;
+                            }
                             return d3.interpolateRdYlGn(t);
                         } else {
                             //If value is undefined
@@ -429,6 +433,7 @@ function UpdateMap(data_avg, min, max, gdp) {
                 initiateZoom();
             }
         );
+        drawLegend();
     }, 500);
 }
 
