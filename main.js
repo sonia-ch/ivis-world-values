@@ -9,7 +9,7 @@ var sortOrd = 1;
 var sortBy = "Happiness";
 var lastButton = "Happiness";
 var gapVar = 0;
-var gapButton = [];
+var gapButton = "Happiness";
 var urlGit = "/ivis-world-values";
 
 
@@ -213,7 +213,7 @@ function drawLegend() {
         .attr("stop-opacity", 1);
 
     key.append("rect")
-        .attr("width", w-200)
+        .attr("width", w - 200)
         .attr("height", h - 50)
         .style("fill", "url(#gradient)")
         .attr("transform", "translate(100,30)");
@@ -268,7 +268,7 @@ function UpdateMap(data_avg, min, max, gdp) {
             urlGit + "/data/custom.geo.json",
             function (json) {
                 // Loop through each state data value in the .csv file
-                for (var i = 0; i < data_avg.length; i++) {                
+                for (var i = 0; i < data_avg.length; i++) {
                     // Grab State Name                
                     var dataCountry = data_avg[i].country
                     //console.log(dataCountry);
@@ -330,7 +330,7 @@ function UpdateMap(data_avg, min, max, gdp) {
 
                             tooltip.style('display', 'block');
                             tooltip.style('opacity', 2);
-                        }                    
+                        }
                     })
                     .on('mousemove', function (d) {
                         tooltip.style('top', (d3.event.layerY + 10) + 'px')
@@ -351,7 +351,7 @@ function UpdateMap(data_avg, min, max, gdp) {
                             //console.log("Name: ", d.properties.name);
                             //boxZoom(path.bounds(d), path.centroid(d), 20);
                         }
-                    
+
                     })
                     .style("fill", function (d) {
                         // Get data value
@@ -366,7 +366,7 @@ function UpdateMap(data_avg, min, max, gdp) {
                                 newMax = Math.log10(max);
                                 value = Math.log10(value);
                             }
-                            var t = (value - newMin) / (newMax-newMin);
+                            var t = (value - newMin) / (newMax - newMin);
                             return d3.interpolateRdYlGn(t);
                         } else {
                             //If value is undefined
@@ -436,7 +436,7 @@ function getAvgData(buttonID, wave) {
     var data_avg = [];
     var coef = [2, 1, -1, -2];
     var avg = [];
-    
+
     d3.csv(urlGit + "/data/w" + wave + "/" + buttonID + ".csv", function (data) {
         var all_countries = Object.keys(data[0]);
         avg.length = all_countries.length - 2;
@@ -459,9 +459,12 @@ function getAvgData(buttonID, wave) {
     return data_avg;
 }
 
-function getAvgDataGap(buttonID, wave) {
-    gapButton = buttonID;
-    console.log("gap button: ", gapButton);
+function getAvgDataGap(sel, wave) {
+    if (sel != 0) {
+        gapButton = sel.options[sel.selectedIndex].value;
+    }
+    //gapButton = buttonID;
+    //console.log("gap button: ", gapButton);
     gapVar = 1;
     var gap_data = [];
     var waves = [1994, 1998, 2004, 2009, 2014];
@@ -470,10 +473,10 @@ function getAvgDataGap(buttonID, wave) {
     var max = [];
     var val = [];
 
-    d3.csv(urlGit + "/data/gap/" + buttonID + ".csv", function (data) {
+    d3.csv(urlGit + "/data/gap/" + gapButton + ".csv", function (data) {
         var all_countries = Object.keys(data[0]);
         data.forEach(function (d, i) {
-            if (d[buttonID] == year.toString()) {
+            if (d[gapButton] == year.toString()) {
                 for (j = 1; j < all_countries.length; j++) {
                     if (d[all_countries[j]] != "" && isNaN(+d[all_countries[j]]) != true) {
                         gap_data.push({ country: all_countries[j], value: +d[all_countries[j]] });
@@ -481,26 +484,26 @@ function getAvgDataGap(buttonID, wave) {
                         if (isNaN(+d[all_countries[j]])) {
                             console.log(all_countries[j]);
                         }
-                        
+
                     }
-                } 
-                min = Math.min.apply(null,val);
-                max = Math.max.apply(null,val);
+                }
+                min = Math.min.apply(null, val);
+                max = Math.max.apply(null, val);
                 //console.log(max, min);
             }
         });
-        UpdateMap(gap_data, min, max,1);
+        UpdateMap(gap_data, min, max, 1);
     });
     //setTimeout(function () {
-        console.log("All: ", min, max);
-        return [gap_data, min, max];
+    console.log("All: ", min, max);
+    return [gap_data, min, max];
 
     //}, 500);
     //console.log(max, min);
     //return [gap_data, min, max];
 }
 
-UpdateMap(getAvgData(lastButton,wave),-200,200,0);
+UpdateMap(getAvgData(lastButton, wave), -200, 200, 0);
 
 //console.log(d3.interpolateRdYlGn(1));
 
@@ -510,7 +513,7 @@ UpdateMap(getAvgData(lastButton,wave),-200,200,0);
 //var lastButton = [];
 
 
-function DrawDotMatrix(buttonID, wave) {    
+function DrawDotMatrix(buttonID, wave) {
     lastButton = buttonID;
     d3.csv(urlGit + "/data/w" + wave + "/" + buttonID + ".csv", function (data) {
         //var dataset = [];
@@ -523,15 +526,15 @@ function DrawDotMatrix(buttonID, wave) {
         var avg = [];
         avg.length = all_countries.length - 2;
         avg.fill(0);
-        
+
         //other_cat.fill(50);
         data.forEach(function (d, i) {
             if (i < 4) {
                 categories[i] = d["Category"];
                 for (j = 2; j < all_countries.length; j++) {
-                    avg[j-2] += coef[i] * +d[all_countries[j]];
+                    avg[j - 2] += coef[i] * +d[all_countries[j]];
                     if (i == 3) {
-                        data_w6_avg.push({ country: all_countries[j], value: avg[j-2] });
+                        data_w6_avg.push({ country: all_countries[j], value: avg[j - 2] });
                     }
                 }
             }
@@ -542,8 +545,8 @@ function DrawDotMatrix(buttonID, wave) {
         //console.log(country);
         //newCountry = country;
         //console.log(newCountry);
-        
-        newCountry = sortCountries(sortOrd, getAvgData(sortBy, wave),categories,all_countries,data);
+
+        newCountry = sortCountries(sortOrd, getAvgData(sortBy, wave), categories, all_countries, data);
     });
 
 }
@@ -554,52 +557,59 @@ function clearCountries() {
     d3.select("#Pictogram").selectAll("svg").remove();
     d3.select("#Legend").selectAll("svg").remove();
     d3.select("#Pic-message").style("display","block");
+
 }
 
 function addCountry(newCountry) {
     if (country.indexOf(newCountry) == -1) {
         country.push(newCountry);
-    }    
+    }
     DrawDotMatrix(lastButton, wave);
 }
 
 function changeVariable(evt, buttonID, wave) {
+    gapVar = 0;
     // Get all buttons with class="btn" and remove the class "active"
     var buttons = document.getElementsByClassName("btn");
     for (i = 0; i < buttons.length; i++) {
         buttons[i].className = buttons[i].className.replace(" active", "");
     }
     evt.currentTarget.className += " active";
-    updateVisuals(buttonID, wave);
+    updateVisuals(buttonID, buttonID, wave);
 }
-function updateVisuals(buttonID, wave) {
+function updateVisuals(map, buttonID, wave) {
     if (wave == null) {
         wave = 6; // Default wave
     }
-    UpdateMap(getAvgData(buttonID, wave),-200,200,0);
+    if (gapVar) {
+        getAvgDataGap(0, wave);
+    } else {
+        UpdateMap(getAvgData(buttonID, wave), -200, 200, 0);
+    }
     DrawDotMatrix(buttonID, wave);
 }
 
-function updateMapGap(buttonID, wave) {
+//function updateMapGap(buttonID, wave) {
 
-    var all = getAvgDataGap(buttonID, wave);
-    setTimeout(function(){
-        console.log("All: ", all[1], all[2]);    
-    }, 1000);
-    //UpdateMap(data,min,max);
+//    var all = getAvgDataGap(buttonID, wave);
+//    setTimeout(function () {
+//        console.log("All: ", all[1], all[2]);
+//    }, 1000);
+//    //UpdateMap(data,min,max);
 
-}
+//}
 
 function updateYear(year) {
     wave = year;
-    updateVisuals(lastButton, wave);
+    var map = gapButton;
+    updateVisuals(map,lastButton, wave);
 }
 
 function slideVal(e, ui) {
     var number = ui.value;
     updateYear(number);
 }
- 
+
 $("#year-range").slider({
     value: 6,
     min: 2,
@@ -626,7 +636,7 @@ $("#year-range").slider({
 
     });
 
-function sortCountries(asc, avgValues,categories,all_countries,data) {
+function sortCountries(asc, avgValues, categories, all_countries, data) {
     var value;
     var other_cat = [];
     var dataset = [];
@@ -635,18 +645,18 @@ function sortCountries(asc, avgValues,categories,all_countries,data) {
     // sort by happiness    
     //var avgValues = [];
     //avgValues = getAvgData(lastButton, wave);
-    setTimeout(function(){
+    setTimeout(function () {
         //console.log("in: ",avgValues.length);
         //console.log(avgValues.length);
-        var values = []; 
+        var values = [];
         var sortedValues = [];
         var sortedCountries = [];
         var unCountries = [];
         var indexDel = [];
         var help = [];
         var count = 0;
-        for (i = 0; i < country.length; i++) { 
-            for(k = 0; k <avgValues.length; k++) {
+        for (i = 0; i < country.length; i++) {
+            for (k = 0; k < avgValues.length; k++) {
                 if (avgValues[k]["country"] == country[i]) {
                     //console.log("c in loop: ", country[i]);
                     values.push(avgValues[k]["value"]);
@@ -665,7 +675,7 @@ function sortCountries(asc, avgValues,categories,all_countries,data) {
         for (i = indexDel.length - 1; i >= 0; i--) {
             country.splice(indexDel[i], 1);
         }
-        
+
         //if (values.length < country.length) {
 
         //}
@@ -715,7 +725,7 @@ function sortCountries(asc, avgValues,categories,all_countries,data) {
         //console.log("before printing: ", sortedCountries);
         return sortedCountries;
     }, 500);
-    
+
 }
 
 function getSortBy(sel) {
