@@ -6,11 +6,15 @@
 function getColor(category) {
     categs = ["Very important", "Rather important", "Not very important", "Not at all important", "Others"];
     categs_happy = ["Very happy", "Quite happy", "Not very happy", "Not at all happy", "Others"];
+    categs_aims = ["Maintaining order in the nation", "Giving people more say in important government decisions",
+        "Fighting rising prices", "Protecting freedom of speech", "Others"];
     var colors = ['#69c242', '#64bbe3', '#ffcc00', '#cf2030', '#ff7300'];
     var colors = [d3.interpolateRdYlGn(1), d3.interpolateRdYlGn(0.66), d3.interpolateRdYlGn(0.33), d3.interpolateRdYlGn(0), "#999999"];
     //categs.indexOf(category);
     if (categs_happy.indexOf(category) != -1) {
         return colors[categs_happy.indexOf(category)];
+    } else if (categs_aims.indexOf(category) != -1) {
+        return colors[categs_aims.indexOf(category)];
     }
     return colors[categs.indexOf(category)];
 }
