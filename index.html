@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Visualizing World Values</title>
+
+    <!-- Main CSS file -->
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="dot-matrix/DotMatrix.css" />
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.ui.touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+
+    <!-- D3 -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/topojson.v1.min.js"></script>
+    <script src="https://d3js.org/d3-color.v1.min.js"></script>
+    <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="/dot-matrix/DotMatrix.js"></script>
+</head>
+
+<body>
+
+    <!-- Tab links -->
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'Trail1')">Analytic Trail 1</button>
+        <button class="tablinks" onclick="openTab(event, 'Trail2')">Analytic Trail 2</button>
+        <button id="vis-button" class="tablinks" onclick="openTab(event, 'Visualization')">Visualization Tools</button>
+    </div>
+    <!-- Tab content -->
+    <div id="Trail1" class="tabcontent">
+        <h3>WVS Analytic Trail</h3>
+        <p>Here I will put my analytic trail from WVS tools.</p>
+        <p>I am interested in how is the feeling of happiness around the world. First I select the last wave, then I have to choose some countries.
+        The image below shows the distribution en each of the countries.</p>
+        <img scr="/screenshots/HappinessXcountry.jpg" alt="This was a photo"/>
+        <p>I am impressed by Egypt and so I have a look at its evolution over the years.</p>
+        <img scr="/screenshots/HappinesEgyptTime.jpg"/>
+        <p>It is clear that something happened in those years, and <a href="https://en.wikipedia.org/wiki/Egyptian_crisis_(2011%E2%80%9314)#Economy"</p>Wikipedia</a>
+        confirmed my ideas.</p>
+        <p>About the map... It fails for negative values of the indicator.</p>
+        <img scr="/screenshots/HappinessMap.jpg"/>
+        <p>Then, I searched for the first aim the participats from each country and the results confirmed even more my hypothesis.</p>
+        <img scr="/screenshots/AimsEgypt.jpg"/>
+
+
+    </div>
+
+    <div id="Trail2" class="tabcontent">
+        <h3>My Analytic Trail</h3>
+        <p>Here I will put the analytic trail based on my own visualizations.</p>
+        <p>Pictogram from: <a href="http://bl.ocks.org/alansmithy/d832fc03f6e6a91e99f4">Alan Smith</a></p>
+        <p>Choropleth Map from: <a href="http://bl.ocks.org/michellechandra/0b2ce4923dc9b5809922">Michelle Chandra</a></p>
+    </div>
+
+    <div id="Visualization" class="tabcontent">
+        <!--<h3>Visualization Tools</h3>
+    <p>This is my visualization</p>-->
+        <button id="Family" class="btn" onclick="changeVariable(event, this.id,wave)">Family</button>
+        <button id="Friends" class="btn" onclick="changeVariable(event, this.id,wave)">Friends</button>
+        <button id="Religion" class="btn" onclick="changeVariable(event, this.id,wave)">Religion</button>
+        <button id="Leisure" class="btn" onclick="changeVariable(event, this.id,wave)">Leisure</button>
+        <button id="Work" class="btn" onclick="changeVariable(event, this.id,wave)">Work</button>
+        <button id="Politics" class="btn" onclick="changeVariable(event, this.id,wave)">Politics</button>
+        <button id="Happiness" class="btn" onclick="changeVariable(event, this.id,wave)">Happiness</button>
+        <button id="GDP" class="btn" onclick="getAvgDataGap(this.id, wave)">Income</button>
+
+        <button id="Clear" class="btn" onclick="clearCountries()">Clear countries</button>
+        <select id="sort-list" onchange="getSortBy(this)">
+            <option value="asc">Happiness asc</option>
+            <option value="desc">Happiness desc</option>
+        </select>
+
+        <!--<button id="Spain" class="btn" onclick="addCountry(this.id)">Spain</button>-->
+
+        <iv class="container">
+            <!--<div id="map-container">
+            <div id="map-holder"></div>
+            <div id="legend1"></div>
+        </div>-->
+            <div id="map-container">
+                <div id="map-holder"></div>
+                <div id="legend1"></div>
+                <div id="year-range" class="slider"></div>
+                <!--<input type="range" class="slider" id="year-range" min="2" max="6" step="1" list="tickmarks"
+            onchange="console.log(this.value)" oninput="updateYear(this.value)">-->
+
+            </div>
+            <div id="Pictogram"></div>
+            <div id="Legend"></div>
+
+            <!--<div id="DotMatrixChart"></div>-->
+    </div>
+
+    </div>
+
+    <!-- Main js file -->
+    <script src="pictogram.js"></script>
+    <script src="main.js"></script>
+
+</body>
+</html>
